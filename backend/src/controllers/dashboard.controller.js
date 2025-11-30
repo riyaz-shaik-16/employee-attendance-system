@@ -3,7 +3,9 @@ import User from "../models/user.model.js"
 
 export const getEmployeeDashboard = async (req, res) => {
   const userId = req.user._id;
+  console.log(userId);
 
+  console.log("This hit")
   const today = new Date().toISOString().slice(0, 10);
   const month = today.slice(0, 7); // YYYY-MM
 

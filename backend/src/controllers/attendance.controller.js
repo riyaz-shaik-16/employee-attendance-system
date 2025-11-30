@@ -62,38 +62,53 @@ export const getMyAttendanceHistory = async (req, res) => {
 export const getMySummary = async (req, res) => {
   const userId = req.user._id;
 
-  // current month
+  // Get 12 months starting from current month
   const now = new Date();
-  const month = now.toISOString().slice(0, 7); // YYYY-MM
+  const summaries = [];
 
-  const records = await Attendance.find({
-    user: userId,
-    date: { $regex: `^${month}` }
-  });
+  // Loop last 12 months
+  for (let i = 0; i < 12; i++) {
+    const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const monthKey = date.toISOString().slice(0, 7); // YYYY-MM
 
-  let present = 0;
-  let absent = 0;
-  let late = 0;
-  let totalHours = 0;
+    // Get all attendance records for this month
+    const records = await Attendance.find({
+      user: userId,
+      date: { $regex: `^${monthKey}` }
+    });
 
-  for (const r of records) {
-    if (r.status === "present") present++;
-    if (r.status === "late") late++;
-    if (r.status === "absent") absent++;
-    totalHours += r.totalHours || 0;
+    let present = 0;
+    let late = 0;
+    let absent = 0;
+    let totalHours = 0;
+
+    for (const r of records) {
+      if (r.status === "present") present++;
+      if (r.status === "late") late++;
+      if (r.status === "absent") absent++;
+      totalHours += r.totalHours || 0;
+    }
+
+    summaries.push({
+      month: monthKey,
+      present,
+      late,
+      absent,
+      totalHours: Number(totalHours.toFixed(2)),
+    });
   }
 
+  // Current month summary
+  const currentMonthKey = summaries[0].month;
+
   res.json({
-    month,
-    present,
-    late,
-    absent,
-    totalHours: totalHours.toFixed(2)
+    currentMonth: summaries[0],
+    months: summaries.reverse() // oldest → newest for graphs
   });
 };
 
 export const getTodayStatus = async (req, res) => {
-  const userId = req.user._id;
+  const userId = req.user?._id;
   const today = new Date().toISOString().slice(0, 10);
 
   const record = await Attendance.findOne({ user: userId, date: today });

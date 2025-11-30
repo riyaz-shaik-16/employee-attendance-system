@@ -1,0 +1,64 @@
+{
+  "todayStatus": "present",
+  "thisMonth": {
+    "present": 12,
+    "late": 6,
+    "absent": 3,
+    "totalHours": 178.45
+  },
+  "recentAttendance": [
+    {
+      "_id": "att1",
+      "user": "emp001",
+      "date": "2025-11-30",
+      "checkIn": "2025-11-30T09:10:00.000Z",
+      "checkOut": "2025-11-30T17:30:00.000Z",
+      "status": "present",
+      "totalHours": 8.33,
+      "createdAt": "2025-11-30T17:31:00.000Z",
+      "updatedAt": "2025-11-30T17:31:00.000Z"
+    },
+    {
+      "_id": "att2",
+      "user": "emp001",
+      "date": "2025-11-29",
+      "checkIn": "2025-11-29T09:45:00.000Z",
+      "checkOut": "2025-11-29T17:15:00.000Z",
+      "status": "late",
+      "totalHours": 7.50,
+      "createdAt": "2025-11-29T17:15:00.000Z",
+      "updatedAt": "2025-11-29T17:15:00.000Z"
+    },
+    {
+      "_id": "att3",
+      "user": "emp001",
+      "date": "2025-11-28",
+      "status": "absent",
+      "totalHours": 0,
+      "createdAt": "2025-11-28T10:00:00.000Z",
+      "updatedAt": "2025-11-28T10:00:00.000Z"
+    },
+    {
+      "_id": "att4",
+      "user": "emp001",
+      "date": "2025-11-27",
+      "checkIn": "2025-11-27T09:00:00.000Z",
+      "checkOut": "2025-11-27T16:45:00.000Z",
+      "status": "present",
+      "totalHours": 7.75,
+      "createdAt": "2025-11-27T16:45:00.000Z",
+      "updatedAt": "2025-11-27T16:45:00.000Z"
+    },
+    {
+      "_id": "att5",
+      "user": "emp001",
+      "date": "2025-11-26",
+      "checkIn": "2025-11-26T10:15:00.000Z",
+      "checkOut": "2025-11-26T17:30:00.000Z",
+      "status": "late",
+      "totalHours": 7.25,
+      "createdAt": "2025-11-26T17:30:00.000Z",
+      "updatedAt": "2025-11-26T17:30:00.000Z"
+    }
+  ]
+}

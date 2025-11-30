@@ -3,10 +3,10 @@ import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 
 export const seedUsers = async () => {
-  // Remove only employees (keep manager if exists)
+  // Remove all employees (keep manager)
   await User.deleteMany({ role: "employee" });
 
-  // Create one manager
+  // Create / update manager
   const hashedManagerPass = await bcrypt.hash("admin123", 10);
 
   await User.findOneAndUpdate(
@@ -16,27 +16,29 @@ export const seedUsers = async () => {
       email: "manager@test.com",
       password: hashedManagerPass,
       role: "manager",
-      department: "Management"
+      department: "Management",
+      employeeId: null,   // manager doesn't need employeeId
     },
     { upsert: true, new: true }
   );
 
   console.log("Manager created ✔");
 
-  // Create 20 employees
+  // Create 20 dummy employees
   const departments = ["IT", "HR", "Finance", "Sales", "Support"];
   const employees = [];
 
   for (let i = 1; i <= 20; i++) {
+    const email = `employee${i}@test.com`;
     const hashed = await bcrypt.hash("123456", 10);
 
     employees.push({
       name: `Employee ${i}`,
-      email: `employee${i}@test.com`,
+      email,
       password: hashed,
       role: "employee",
-      employeeId: `EMP${String(i).padStart(3, "0")}`,
-      department: departments[Math.floor(Math.random() * departments.length)]
+      employeeId: email, // employeeId = email
+      department: departments[Math.floor(Math.random() * departments.length)],
     });
   }
 

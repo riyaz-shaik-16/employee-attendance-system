@@ -3,8 +3,8 @@ dotenv.config();
 
 import app from "./app.js";
 import connectDB from "./config/db.js";
-// import { seedUsers } from "./seed/users.seed.js";
-// import { seedAttendance } from "./seed/attendance.seed.js";
+import { seedUsers } from "./seed/users.seed.js";
+import { seedAttendance } from "./seed/attendance.seed.js";
 
 const PORT = process.env.PORT || 5000;
 
